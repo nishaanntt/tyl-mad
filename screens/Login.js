@@ -1,46 +1,67 @@
 import {
+	Keyboard,
 	SafeAreaView,
 	StyleSheet,
 	Text,
 	TextInput,
 	TouchableOpacity,
+	TouchableWithoutFeedback,
 	View,
 } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
+
 const Login = () => {
+	const navigation = useNavigation();
+
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = '';
+
+	const handleRegister = () => {
+		navigation.navigate('Register');
+	};
+
 	return (
 		<SafeAreaView style={[styles.safeContainer]}>
-			<View style={styles.container}>
-				<Text style={styles.logo}>CMR Institute of Technology</Text>
-				<View style={styles.formContainer}>
-					<View style={styles.field}>
-						<Text style={styles.label}>Email</Text>
-						<TextInput
-							placeholder='abc@example.com'
-							keyboardType='email-address'
-							style={styles.input}
-						/>
-					</View>
-					<View style={styles.field}>
-						<Text style={styles.label}>Password</Text>
-						<TextInput
-							placeholder='password'
-							secureTextEntry
-							style={styles.input}
-						/>
-					</View>
-					<TouchableOpacity>
-						<View style={styles.button}>
-							<Text style={styles.buttonText}>Login</Text>
+			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+				<View style={styles.container}>
+					<Text style={styles.logo}>CMR Institute of Technology</Text>
+					<View style={styles.formContainer}>
+						<View style={styles.field}>
+							<Text style={styles.label}>Email</Text>
+							<TextInput
+								placeholder='abc@example.com'
+								keyboardType='email-address'
+								style={styles.input}
+								value={email}
+								onChangeText={setEmail}
+							/>
 						</View>
-					</TouchableOpacity>
-					<View style={styles.registerContainer}>
-						<Text>Don't have an account yet? </Text>
+						<View style={styles.field}>
+							<Text style={styles.label}>Password</Text>
+							<TextInput
+								placeholder='password'
+								secureTextEntry
+								style={styles.input}
+								value={password}
+								onChangeText={setPassword}
+							/>
+						</View>
 						<TouchableOpacity>
-							<Text style={styles.linkText}>Register here</Text>
+							<View style={styles.button}>
+								<Text style={styles.buttonText}>Login</Text>
+							</View>
 						</TouchableOpacity>
+						<View style={styles.registerContainer}>
+							<Text>Don't have an account yet? </Text>
+							<TouchableOpacity onPress={handleRegister}>
+								<Text style={styles.linkText}>Register here</Text>
+							</TouchableOpacity>
+						</View>
 					</View>
 				</View>
-			</View>
+			</TouchableWithoutFeedback>
 		</SafeAreaView>
 	);
 };
